@@ -3,14 +3,7 @@
 import { useState, type ReactNode } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  CalendarDays,
-  Check,
-  Clock,
-  Heart,
-  MapPin,
-  X,
-} from "lucide-react";
+import { CalendarDays, Check, Clock, Heart, MapPin, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { assets, date, mapsEmbedSrc, time, venueName } from "@/lib/invite";
 
@@ -25,13 +18,7 @@ const BURST = Array.from({ length: 12 }, (_, i) => {
   };
 });
 
-function EnvelopeScene({
-  open,
-  onTap,
-}: {
-  open: boolean;
-  onTap: () => void;
-}) {
+function EnvelopeScene({ open, onTap }: { open: boolean; onTap: () => void }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24, scale: 0.95 }}
@@ -55,33 +42,45 @@ function EnvelopeScene({
         />
 
         <motion.div
-          className="absolute inset-0 z-10"
+          className="absolute left-[10%] top-[4%] z-10 w-[80%]"
           initial={false}
-          animate={{ y: open ? "2%" : "86%" }}
+          animate={{ y: open ? "-10%" : "0%" }}
           transition={{ type: "spring", stiffness: 240, damping: 28 }}
           style={{ willChange: "transform" }}
         >
-          <Image
-            src={assets.letter}
-            alt=""
-            fill
-            sizes="420px"
-            draggable={false}
-            className="object-fill"
-          />
           <motion.div
-            className="absolute left-1/2 top-[15%] z-10 -ml-5 text-heart-red"
+            className="relative aspect-[587/425]"
             initial={false}
-            animate={open ? { y: [0, -7, 0] } : { y: 0 }}
-            transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+            animate={{
+              clipPath: open ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 55% 0%)",
+            }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <Heart className="h-10 w-10 fill-heart-red" />
+            <Image
+              src={assets.letter}
+              alt=""
+              fill
+              sizes="336px"
+              draggable={false}
+              className="object-fill"
+            />
+            <motion.div
+              className="absolute left-1/2 top-[15%] z-10 -ml-5 text-heart-red"
+              initial={false}
+              animate={open ? { y: [0, -7, 0] } : { y: 0 }}
+              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Heart className="h-10 w-10 fill-heart-red" />
+            </motion.div>
           </motion.div>
         </motion.div>
 
         <motion.div
           className="absolute inset-0 z-20"
-          style={{ transformOrigin: "top center", backfaceVisibility: "hidden" }}
+          style={{
+            transformOrigin: "top center",
+            backfaceVisibility: "hidden",
+          }}
           initial={false}
           animate={open ? { rotateX: 180 } : { rotateX: 0 }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
@@ -282,7 +281,7 @@ function InviteCard({
 
         <label className="block">
           <span className="mb-1.5 block text-sm font-semibold text-ink">
-            Message (optional)
+            Birthday Message
           </span>
           <textarea
             value={message}
@@ -338,8 +337,17 @@ function ThankYouCard({ name }: { name: string }) {
           <motion.span
             key={index}
             initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
-            animate={{ x: burst.x, y: burst.y, scale: [0, 1.15, 0.5], opacity: [0, 1, 0] }}
-            transition={{ delay: 0.1 + burst.delay, duration: 1.1, ease: "easeOut" }}
+            animate={{
+              x: burst.x,
+              y: burst.y,
+              scale: [0, 1.15, 0.5],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              delay: 0.1 + burst.delay,
+              duration: 1.1,
+              ease: "easeOut",
+            }}
             className="absolute left-1/2 top-1/2 -ml-3 -mt-3 text-heart-red"
           >
             <Heart className="h-6 w-6 fill-heart-red" />
