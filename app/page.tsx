@@ -78,7 +78,9 @@ function EnvelopeScene({ open, onTap }: { open: boolean; onTap: () => void }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -16, scale: 0.97 }}
       transition={{ duration: 0.45, ease: "easeOut" }}
-      className="flex cursor-pointer select-none flex-col items-center gap-8 py-16"
+      className={`flex cursor-pointer select-none flex-col items-center gap-8 ${
+        open ? "pt-40 pb-8" : "py-16"
+      }`}
       onClick={onTap}
       role="button"
       aria-label={open ? "Open the letter" : "Open the envelope"}
@@ -314,13 +316,11 @@ type InviteCardProps = {
   name: string;
   nameError: string | null;
   attending: boolean | null;
-  message: string;
   submitting: boolean;
   error: string | null;
   setName: (value: string) => void;
   setNameError: (value: string | null) => void;
   setAttending: (value: boolean) => void;
-  setMessage: (value: string) => void;
   onSubmit: () => void;
 };
 
@@ -328,13 +328,11 @@ function InviteCard({
   name,
   nameError,
   attending,
-  message,
   submitting,
   error,
   setName,
   setNameError,
   setAttending,
-  setMessage,
   onSubmit,
 }: InviteCardProps) {
   return (
@@ -441,19 +439,6 @@ function InviteCard({
           </div>
         </div>
 
-        <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-ink">
-            Birthday Message
-          </span>
-          <textarea
-            value={message}
-            onChange={(event) => setMessage(event.target.value)}
-            rows={3}
-            placeholder="A note for us…"
-            className="w-full resize-none rounded-2xl border border-blush-mid bg-paper px-4 py-3 text-sm text-ink placeholder:text-blush-dark focus:border-heart-red/50 focus:outline-none focus:ring-2 focus:ring-heart-red/40"
-          />
-        </label>
-
         {error ? (
           <motion.p
             initial={{ opacity: 0 }}
@@ -543,7 +528,6 @@ export default function Invitation() {
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState<string | null>(null);
   const [attending, setAttending] = useState<boolean | null>(null);
-  const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -568,7 +552,6 @@ export default function Invitation() {
       const { error: dbError } = await supabase.from("rsvps").insert({
         name: trimmedName,
         attending,
-        message: message.trim() || null,
       });
       if (dbError) {
         throw dbError;
@@ -591,13 +574,11 @@ export default function Invitation() {
               name={name}
               nameError={nameError}
               attending={attending}
-              message={message}
               submitting={submitting}
               error={error}
               setName={setName}
               setNameError={setNameError}
               setAttending={setAttending}
-              setMessage={setMessage}
               onSubmit={handleSubmit}
             />
           ) : stage === "confirmed" ? (
