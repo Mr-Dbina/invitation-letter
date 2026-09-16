@@ -30,7 +30,8 @@ C469,192 381,195.5 293,195.5 C206,195.5 118,192 28,200
 C24,130 26,60 28,9 Z`;
 
 const FLAP_SHADOW_L = "M61,24 C59,84 106,158 178,181 C220,190 256,193 286,194";
-const FLAP_SHADOW_R = "M526,24 C528,84 480,158 408,181 C366,190 332,193 300,194";
+const FLAP_SHADOW_R =
+  "M526,24 C528,84 480,158 408,181 C366,190 332,193 300,194";
 
 const POCKET_D = `M28,200 C118,192 206,195.5 293,195.5 C381,195.5 469,192 559,200
 C560,230 559,300 557,360 C556,398 550,406 532,406
@@ -39,7 +40,8 @@ C100,410 42,406 32,388 C26,376 25,340 26,290
 C27,244 27,222 28,200 Z`;
 
 const LIP_D = "M34,203 C118,195 206,198.5 293,198.5 C380,198.5 464,195 556,203";
-const LIP_SHADOW_D = "M42,207 C118,199 206,202.5 293,202.5 C380,202.5 462,199 550,207";
+const LIP_SHADOW_D =
+  "M42,207 C118,199 206,202.5 293,202.5 C380,202.5 462,199 550,207";
 const CREASE_L = "M58,212 C150,268 226,338 292,390";
 const CREASE_R = "M529,212 C438,268 362,338 294,390";
 
@@ -119,10 +121,16 @@ function EnvelopeScene({ open, onTap }: { open: boolean; onTap: () => void }) {
               initial={false}
               animate={open ? { y: [0, -10, 0] } : { y: 0 }}
               transition={
-                open ? { duration: 3, repeat: Infinity, ease: "easeInOut" } : { duration: 0.3 }
+                open
+                  ? { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                  : { duration: 0.3 }
               }
             >
-              <svg viewBox="0 0 587 425" aria-hidden="true" className="absolute inset-0 h-full w-full">
+              <svg
+                viewBox="0 0 587 425"
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full"
+              >
                 <path
                   d={LETTER_D}
                   fill="#FFF9F6"
@@ -164,7 +172,11 @@ function EnvelopeScene({ open, onTap }: { open: boolean; onTap: () => void }) {
           </motion.div>
         </div>
 
-        <svg viewBox="0 0 587 425" aria-hidden="true" className="pointer-events-none absolute inset-0 z-[5] h-full w-full">
+        <svg
+          viewBox="0 0 587 425"
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-[5] h-full w-full"
+        >
           <path
             d={POCKET_D}
             fill="#F7B8B0"
@@ -173,7 +185,13 @@ function EnvelopeScene({ open, onTap }: { open: boolean; onTap: () => void }) {
             strokeLinejoin="round"
             strokeLinecap="round"
           />
-          <path d={LIP_D} fill="none" stroke="#3A3A3A" strokeWidth="2.5" strokeLinecap="round" />
+          <path
+            d={LIP_D}
+            fill="none"
+            stroke="#3A3A3A"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
           <path
             d={LIP_SHADOW_D}
             fill="none"
@@ -209,7 +227,11 @@ function EnvelopeScene({ open, onTap }: { open: boolean; onTap: () => void }) {
           style={{ transformOrigin: "50% 0%", transformPerspective: 900 }}
           initial={false}
           animate={open ? { rotateX: 175 } : { rotateX: 0 }}
-          transition={{ duration: 0.32, ease: "easeInOut", delay: open ? 0.02 : 0 }}
+          transition={{
+            duration: 0.32,
+            ease: "easeInOut",
+            delay: open ? 0.02 : 0,
+          }}
         >
           <path
             d={FLAP_D}
@@ -245,7 +267,11 @@ function EnvelopeScene({ open, onTap }: { open: boolean; onTap: () => void }) {
             style={{ transformOrigin: "50% 50%" }}
             animate={
               open
-                ? { scale: [1, 1.35, 0], rotate: [-6, -16, 20], opacity: [1, 1, 0] }
+                ? {
+                    scale: [1, 1.35, 0],
+                    rotate: [-6, -16, 20],
+                    opacity: [1, 1, 0],
+                  }
                 : { scale: [1, 1.07, 1], opacity: 1 }
             }
             transition={
@@ -271,7 +297,9 @@ function EnvelopeScene({ open, onTap }: { open: boolean; onTap: () => void }) {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        {open ? "Tap the letter to open your invite" : "Tap the heart seal to open"}
+        {open
+          ? "Tap the letter to open your invite"
+          : "Tap the heart seal to open"}
       </motion.p>
     </motion.div>
   );
@@ -455,7 +483,7 @@ function InviteCard({
           disabled={submitting}
           className="w-full rounded-full bg-heart-red py-3.5 text-sm font-bold text-paper shadow-lg shadow-heart-red/30 transition hover:brightness-105 focus:outline-none focus:ring-2 focus:ring-heart-red/40 focus:ring-offset-2 focus:ring-offset-paper disabled:cursor-not-allowed disabled:opacity-60 sm:py-4 sm:text-base"
         >
-          {submitting ? "Saving your RSVP…" : "Send RSVP"}
+          {submitting ? "Saving your RSVP…" : "Send"}
         </button>
       </form>
     </motion.div>
