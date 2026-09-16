@@ -219,9 +219,9 @@ function EnvelopeScene({ open, onTap }: { open: boolean; onTap: () => void }) {
         </svg>
 
         <motion.svg
-          viewBox="0 0 587 195.5"
+          viewBox="0 0 587 425"
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-x-0 top-0 h-[46%] w-full ${
+          className={`pointer-events-none absolute inset-0 h-full w-full ${
             flapSettled ? "z-[2]" : "z-[30]"
           }`}
           style={{ transformOrigin: "50% 0%", transformPerspective: 900 }}

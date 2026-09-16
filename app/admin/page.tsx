@@ -68,14 +68,18 @@ export default async function AdminPage({
             <table className="w-full border-collapse text-left text-sm">
               <thead>
                 <tr className="border-b-2 border-blush-mid">
+                  <th className="py-2 pr-4">#</th>
                   <th className="py-2 pr-4">Name</th>
                   <th className="py-2 pr-4">Attending</th>
                   <th className="py-2">Message</th>
                 </tr>
               </thead>
               <tbody>
-                {rsvps.map((r: Rsvp) => (
+                {rsvps.map((r: Rsvp, index: number) => (
                   <tr key={r.id} className="border-b border-blush-mid/50">
+                    <td className="py-2 pr-4 tabular-nums text-ink/50">
+                      {index + 1}
+                    </td>
                     <td className="py-2 pr-4 font-semibold">{r.name}</td>
                     <td className="py-2 pr-4">
                       {r.attending ? "Yes" : "No"}
